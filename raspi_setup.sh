@@ -51,7 +51,7 @@ sudo gpasswd -a $USER autologin
 sudo nano /etc/lightdm/lightdm.conf
 <<New
 [Seat:*]
-autologin-user=ubuntu
+autologin-user="USERNAME"
 autologin-session=i3
 New
 
