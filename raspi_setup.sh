@@ -87,22 +87,22 @@ sudo apt update
 sudo apt install code
 
 #install recommended
-sudo apt install xfce4-terminal #rich and useful
+sudo apt install xfce4-terminal #I recommend to reconfigure.
 mkdir ~/.fonts
 cd ~/.fonts
-wget https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/SourceCodePro/Medium/complete/Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete.ttf
+wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Medium/complete/Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete.ttf
 fc-cache -fv
 
 #i3wm configuration
 sudo apt install subversion
 cd ~/.config
 rm -rf ~/.config/i3
-svn checkout https://github.com/FascodeNet/alterlinux/trunk/channels/i3/airootfs.any/etc/skel/.config/i3
-svn checkout https://github.com/FascodeNet/alterlinux/trunk/channels/i3/airootfs.any/etc/skel/.config/polybar
-svn checkout https://github.com/FascodeNet/alterlinux/trunk/channels/i3/airootfs.any/etc/skel/.config/rofi
-svn checkout https://github.com/FascodeNet/alterlinux/trunk/channels/i3/airootfs.any/etc/skel/.config/dunst
+svn checkout https://github.com/sarukiti/alterlinux/trunk/channels/i3/.config/i3
+svn checkout https://github.com/sarukiti/alterlinux/trunk/channels/i3/.config/polybar
+svn checkout https://github.com/sarukiti/alterlinux/trunk/channels/i3/.config/rofi
+svn checkout https://github.com/sarukiti/alterlinux/trunk/channels/i3/.config/dunst
 cd ~/.fonts
-wget https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf
+wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf
 fc-cache -fv
 #You need to be modified ~/.config/i3/config . See the url for details. > {工事中}
 
