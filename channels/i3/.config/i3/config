@@ -31,6 +31,7 @@ for_window [class="^.*"] border pixel 2
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id dunst
+exec_always --no-startup-id /usr/lib/vino/vino-server
 #exec_always --no-startup-id light-locker
 exec --no-startup-id xfce4-clipman
 exec --no-startup-id dex -ae i3

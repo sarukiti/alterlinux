@@ -1,25 +1,4 @@
-#enable network
-sudo nano /etc/netplan/50-cloud-init.yaml
-<< Edit
-network:
-    ethernets:
-        eth0:
-            dhcp4: true
-            optional: true
-    version: 2
-    wifis:
-        wlan0:
-            access-points:
-                "SSID":
-                   password: "PASSWORD"
-            dhcp4: true
-            dhcp6: true
-Edit
-sudo netplan apply
-
-#keyboard configuration
-sudo dpkg-reconfigure keyboard-configuration
-reboot
+#prepare cloud-init to use ssh. See the url for details. > https://aquasoftware.net/blog/?p=1404
 
 #install desktop enviroment
 sudo apt update
@@ -28,7 +7,6 @@ sudo apt install ubuntu-desktop
 sudo apt install --no-install_recommends lightdm
 #Select lightdm on the DisplayManager selection screen.
 sudo apt install lightdm-gtk-greeter
-reboot
 
 #netplan renderer setting
 sudo nano /etc/netplan/50-cloud-init.yaml
@@ -48,6 +26,7 @@ network:
             dhcp4: true
             dhcp6: true
 Edit
+reboot
 #Configure vino-server from gnome-control-center. See the url for details. > {工事中}
 
 sudo add-apt-repository ppa:regolith-linux/stable
@@ -65,6 +44,16 @@ cd build
 cmake ..
 make -j$(nproc)
 sudo make install
+
+#autologin configuration
+sudo groupadd -r autologin
+sudo gpasswd -a $USER autologin
+sudo nano /etc/lightdm/lightdm.conf
+<<New
+[Seat:*]
+autologin-user=ubuntu
+autologin-session=i3
+New
 
 #Japanese
 cd
