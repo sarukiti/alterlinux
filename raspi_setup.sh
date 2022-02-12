@@ -1,13 +1,39 @@
 #prepare cloud-init to use ssh. See the url for details. > https://aquasoftware.net/blog/?p=1404
+#Edit "network-config" and "user-data" accordingly according to the above documents.
+#Then plug in the power cable and wait for about five minutes.
 
 #install desktop enviroment
 sudo apt update
 sudo apt upgrade
 sudo apt install ubuntu-desktop
-sudo apt install --no-install_recommends lightdm
+sudo apt install --no-install-recommends lightdm
 #Select lightdm on the DisplayManager selection screen.
 sudo apt install lightdm-gtk-greeter
+#autologin configuration
+sudo groupadd -r autologin
+sudo gpasswd -a $USER autologin
+sudo nano /etc/lightdm/lightdm.conf #"ubuntu" replaced with individual usernames.
+<<New
+[Seat:*]
+autologin-user=ubuntu
+New
+sudo reboot
 
+#install i3-gaps
+sudo add-apt-repository ppa:regolith-linux/stable
+sudo apt install i3-gaps nitrogen dunst xfce4-clipman xfce4-screenshooter picom conky rofi dex
+sudo apt install build-essential git cmake cmake-data pkg-config python3-sphinx python3-packaging libuv1-dev libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev
+sudo apt install libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
+mkdir ~/Downloads
+cd ~/Downloads
+wget https://github.com/polybar/polybar/releases/download/3.5.7/polybar-3.5.7.tar.gz
+tar -xzvf polybar-3.5.7.tar.gz
+cd polybar-3.5.7
+mkdir build
+cd build
+cmake ..
+make -j$(nproc)
+sudo make install
 #netplan renderer setting
 sudo nano /etc/netplan/50-cloud-init.yaml
 <<Edit
@@ -26,46 +52,23 @@ network:
             dhcp4: true
             dhcp6: true
 Edit
-reboot
+sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting
+chsh -s /bin/zsh $USER
+#Connect the display.
+sudo reboot
+
 #Configure vino-server from gnome-control-center. See the url for details. > {工事中}
-
-sudo add-apt-repository ppa:regolith-linux/stable
-sudo apt update
-sudo apt install i3-gaps nitrogen dunst xfce4-clipman xfce4-screenshooter picom conky rofi dex
-
-sudo apt install build-essential git cmake cmake-data pkg-config python3-sphinx python3-packaging libuv1-dev libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev
-sudo apt install libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
-cd ~/Downloads
-wget https://github.com/polybar/polybar/releases/download/3.5.7/polybar-3.5.7.tar.gz
-tar -xzvf polybar-3.5.7.tar.gz
-cd polybar-3.5.7
-mkdir build
-cd build
-cmake ..
-make -j$(nproc)
-sudo make install
-
-#autologin configuration
-sudo groupadd -r autologin
-sudo gpasswd -a $USER autologin
-sudo nano /etc/lightdm/lightdm.conf
-<<New
-[Seat:*]
-autologin-user=ubuntu
-autologin-session=i3
-New
+#Launch the terminal emulator.
+#For zsh-newuser-install, please select (2).
+sudo sed -i '$ a autologin-session=i3' /etc/lightdm/lightdm.conf
+sudo reboot
 
 #Japanese
-cd
 sudo apt install language-pack-ja-base language-pack-ja language-pack-gnome-ja fcitx-mozc fonts-noto
 localectl set-locale LANG=ja_JP.UTF-8 LANGUAGE="ja_JP:ja"
 source /etc/default/locale
 tzselect
 timedatectl set-ntp true
-sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting
-chsh -s /bin/zsh $USER
-reboot
-
 #install VSCode
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
@@ -74,14 +77,12 @@ rm -f packages.microsoft.gpg
 sudo apt install apt-transport-https
 sudo apt update
 sudo apt install code
-
 #install recommended
-sudo apt install xfce4-terminal #I recommend to reconfigure.
+sudo apt install xfce4-terminal
 mkdir ~/.fonts
 cd ~/.fonts
 wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Medium/complete/Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete.ttf
 fc-cache -fv
-
 #i3wm configuration
 sudo apt install subversion
 cd ~/.config
@@ -93,8 +94,6 @@ svn checkout https://github.com/sarukiti/alterlinux/trunk/channels/i3/.config/du
 cd ~/.fonts
 wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf
 fc-cache -fv
-#You need to be modified ~/.config/i3/config . See the url for details. > {工事中}
-
 #powerline settings
 nano ~/.zshrc
 <<Delete
@@ -102,11 +101,11 @@ autoload -Uz promptinit
 promptinit
 prompt adam1
 Delete
-
 cd ~/Downloads
 wget https://github.com/justjanne/powerline-go/releases/download/v1.21.0/powerline-go-linux-arm64
 mv powerline-go-linux-arm64 powerline-go
 sudo cp powerline-go /usr/bin
+sudo chmod 755 /usr/bin/powerline-go
 nano ~/.zshrc
 <<Add
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -129,11 +128,10 @@ if [[ ${TERM} != "linux" ]]; then
 fi
 Add
 #lsd settings
-cd ~/Downloads
 wget https://github.com/Peltoche/lsd/releases/download/0.21.0/lsd_0.21.0_arm64.deb
 sudo apt install ./lsd_0.21.0_arm64.deb
 sed -i '$ a alias ls="lsd"' ~/.zshrc #I recommend to edit terminal color preset.
-
+source ~/.zshrc
 #VNCserver settings
 sudo apt install xserver-xorg-video-dummy
 sudo nano /usr/share/X11/xorg.conf.d/20-dummy.conf
@@ -172,7 +170,10 @@ Section "InputClass"
     Option "XkbOptions" "grp:alt_shift_toggle"
 EndSection
 Edit
-reboot
+sudo reboot
 
+#For the home directory, select "Keep the old name".
 #install ros
 #See the url for details. > http://wiki.ros.org/ja/noetic/Installation/Ubuntu
+
+#For other settings that should be done in the GUI, see the url for details. > {工事中}
