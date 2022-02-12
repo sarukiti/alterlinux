@@ -12,10 +12,10 @@ sudo apt install lightdm-gtk-greeter
 #autologin configuration
 sudo groupadd -r autologin
 sudo gpasswd -a $USER autologin
-sudo nano /etc/lightdm/lightdm.conf #"ubuntu" replaced with individual usernames.
+sudo nano /etc/lightdm/lightdm.conf #USERNAME replaced with individual usernames.
 <<New
 [Seat:*]
-autologin-user="USERNAME"
+autologin-user=USERNAME
 New
 sudo reboot
 
