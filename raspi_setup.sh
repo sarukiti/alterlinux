@@ -15,7 +15,7 @@ sudo gpasswd -a $USER autologin
 sudo nano /etc/lightdm/lightdm.conf #"ubuntu" replaced with individual usernames.
 <<New
 [Seat:*]
-autologin-user=ubuntu
+autologin-user="USERNAME"
 New
 sudo reboot
 
