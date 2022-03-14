@@ -87,10 +87,10 @@ fc-cache -fv
 sudo apt install subversion
 cd ~/.config
 rm -rf ~/.config/i3
-svn checkout https://github.com/sarukiti/alterlinux/trunk/channels/i3/.config/i3
-svn checkout https://github.com/sarukiti/alterlinux/trunk/channels/i3/.config/polybar
-svn checkout https://github.com/sarukiti/alterlinux/trunk/channels/i3/.config/rofi
-svn checkout https://github.com/sarukiti/alterlinux/trunk/channels/i3/.config/dunst
+svn checkout https://github.com/sarukiti/rasPi_config/trunk/channels/i3/.config/i3
+svn checkout https://github.com/sarukiti/rasPi_config/trunk/channels/i3/.config/polybar
+svn checkout https://github.com/sarukiti/rasPi_config/trunk/channels/i3/.config/rofi
+svn checkout https://github.com/sarukiti/rasPi_config/trunk/channels/i3/.config/dunst
 cd ~/.fonts
 wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf
 fc-cache -fv
