@@ -81,7 +81,7 @@ sudo apt install code
 sudo apt install xfce4-terminal
 mkdir ~/.fonts
 cd ~/.fonts
-wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Medium/complete/Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete.ttf
+wget --trust-server-names https://0e0.pw/zMQ5
 fc-cache -fv
 #i3wm configuration
 sudo apt install subversion
@@ -92,7 +92,7 @@ svn checkout https://github.com/sarukiti/rasPi_config/trunk/channels/i3/.config/
 svn checkout https://github.com/sarukiti/rasPi_config/trunk/channels/i3/.config/rofi
 svn checkout https://github.com/sarukiti/rasPi_config/trunk/channels/i3/.config/dunst
 cd ~/.fonts
-wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf
+wget --trust-server-names https://0e0.pw/xJfR
 fc-cache -fv
 #powerline settings
 nano ~/.zshrc
