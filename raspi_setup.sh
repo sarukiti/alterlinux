@@ -92,7 +92,8 @@ svn checkout https://github.com/sarukiti/rasPi_config/trunk/channels/i3/.config/
 svn checkout https://github.com/sarukiti/rasPi_config/trunk/channels/i3/.config/rofi
 svn checkout https://github.com/sarukiti/rasPi_config/trunk/channels/i3/.config/dunst
 cd ~/.fonts
-wget --trust-server-names https://0e0.pw/xJfR
+#FirgeNerd
+curl -sL https://0e0.pw/HELp > FirgeNerd.zip && unzip FirgeNerd.zip && rm FirgeNerd.zip
 fc-cache -fv
 #powerline settings
 nano ~/.zshrc
